@@ -1,5 +1,1 @@
 streamlit
-base64  
-parser 
-re 
-python 
