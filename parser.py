@@ -1,6 +1,5 @@
 import re
 from docx import Document
-import io
 DATA_SOURCE_MASTER = {
     # PREMIER
     "premier healthcare database": "Premier Healthcare Database",
@@ -34,25 +33,16 @@ DATA_SOURCE_MASTER = {
     "connect": "Connect"
 }
 
-from docx import Document
-import io
-
 def read_docx(file):
-    try:
-        # Ensure proper binary reading
-        file.seek(0)
-        file_bytes = file.read()
-        doc = Document(io.BytesIO(file_bytes))
+    doc = Document(file)
+    text = []
 
-        text = []
-        for para in doc.paragraphs:
-            if para.text.strip():
-                text.append(para.text.strip())
+    for para in doc.paragraphs:
+        if para.text.strip():
+            text.append(para.text.strip())
 
-        return "\n".join(text)
+    return "\n".join(text)
 
-    except Exception as e:
-        return f"Error reading file: {str(e)}"
 
 
 def extract_study_selection(text):
